@@ -24,6 +24,9 @@ Basically, where you can place additional resources to be consumed by your DAGs.
 docker build -t your-repo/image-name:semver-number .
 # i.e. docker build -t myrepo/airflow-deb:0.0.1 .
 
+# Log into dockerhub
+docker login
+
 # Push your imge to docker hub (you need to be logged in Docker hub)
 docker push your-repo/image-name:semver-number
 # i.e. docker push myrepo/airflow-deb:0.0.1
