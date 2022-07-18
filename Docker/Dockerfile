@@ -6,6 +6,7 @@ ARG ASSETS_DIR=${AIRFLOW_HOME}/assets
 
 # Tweak image env vars
 ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+ENV AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
 ENV ASSETS_DIR=${ASSETS_DIR}
 
 # Install pip dependencies

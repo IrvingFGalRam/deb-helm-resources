@@ -1,7 +1,31 @@
 images:
   airflow:
-    repository: your-repo/your-airflow-image # Your Docker Hub repo and image name
+    repository: irvingfgr/airflow-deb # Your Docker Hub repo and image name
     tag: 0.0.1 # The tag you chose when building the Dockerfile
+
+# Git sync (Disable when development is finished and put DAGs directly from source image)
+dags:
+  persistence:
+    # Enable persistent volume for storing dags
+    enabled: true
+    # Volume size for dags
+    size: 1Gi
+    # If using a custom storageClass, pass name here
+    storageClassName: nfs-client
+    # access mode of the persistent volume
+    accessMode: ReadWriteMany
+
+  gitSync:
+    enabled: true
+    repo: https://github.com/IrvingFGalRam/airflow-dags
+    branch: main
+    rev: HEAD
+    depth: 1
+    # the number of consecutive failures allowed before aborting
+    maxFailures: 0
+    # subpath within the repo where dags are located
+    # should be "" if dags are at repo root
+    subPath: ""
 
 logs:
   persistence:
@@ -22,48 +46,50 @@ secret:
   # Connections
   - envName: "AIRFLOW_CONN_AWS_DEFAULT"
     secretName: af-connections
-    secretKey: aws
+    secretKey: gcp
   - envName: "AIRFLOW_CONN_POSTGRES_DEFAULT"
     secretName: af-connections
     secretKey: postgres
   # Airflow Variables
   - envName: "AIRFLOW_VAR_BUCKET"
-    secretName: af-variables
+    secretName: af-var2
     secretKey: bucket
-  - envName: "AIRFLOW_VAR_LOGREV_KEY"
-    secretName: af-variables
-    secretKey: logrev_key
-  - envName: "AIRFLOW_VAR_MOVREV_KEY"
-    secretName: af-variables
-    secretKey: movrev_key
-  - envName: "AIRFLOW_VAR_USRPUR_KEY"
-    secretName: af-variables
-    secretKey: usrpur_key
-  - envName: "AIRFLOW_VAR_USRPUR_TABLE"
-    secretName: af-variables
-    secretKey: usrpur_table
-  - envName: "AIRFLOW_VAR_USRPUR_SCHEMA"
-    secretName: af-variables
-    secretKey: usrpur_schema
-  - envName: "AIRFLOW_VAR_USRPUR_QUERY"
-    secretName: af-variables
-    secretKey: usrpur_query
-  - envName: "AIRFLOW_VAR_GLUEJOB"
-    secretName: af-variables
-    secretKey: gluejob
-  - envName: "AIRFLOW_VAR_GLUE_SCRIPT_LOCATION"
-    secretName: af-variables
-    secretKey: glue_script_location
-  - envName: "AIRFLOW_VAR_REGION"
-    secretName: af-variables
-    secretKey: region
-  - envName: "AIRFLOW_VAR_ATHDB"
-    secretName: af-variables
-    secretKey: athdb
-  - envName: "AIRFLOW_VAR_ATHBUCKET"
-    secretName: af-variables
-    secretKey: athbucket
-  # Env variables
-  - envName: "AWS_DEFAULT_REGION"
-    secretName: af-variables
-    secretKey: region
+
+
+#  - envName: "AIRFLOW_VAR_LOGREV_KEY"
+#    secretName: af-variables
+#    secretKey: logrev_key
+#  - envName: "AIRFLOW_VAR_MOVREV_KEY"
+#    secretName: af-variables
+#    secretKey: movrev_key
+#  - envName: "AIRFLOW_VAR_USRPUR_KEY"
+#    secretName: af-variables
+#    secretKey: usrpur_key
+#  - envName: "AIRFLOW_VAR_USRPUR_TABLE"
+#    secretName: af-variables
+#    secretKey: usrpur_table
+#  - envName: "AIRFLOW_VAR_USRPUR_SCHEMA"
+#    secretName: af-variables
+#    secretKey: usrpur_schema
+#  - envName: "AIRFLOW_VAR_USRPUR_QUERY"
+#    secretName: af-variables
+#    secretKey: usrpur_query
+#  - envName: "AIRFLOW_VAR_GLUEJOB"
+#    secretName: af-variables
+#    secretKey: gluejob
+#  - envName: "AIRFLOW_VAR_GLUE_SCRIPT_LOCATION"
+#    secretName: af-variables
+#    secretKey: glue_script_location
+#  - envName: "AIRFLOW_VAR_REGION"
+#    secretName: af-variables
+#    secretKey: region
+#  - envName: "AIRFLOW_VAR_ATHDB"
+#    secretName: af-variables
+#    secretKey: athdb
+#  - envName: "AIRFLOW_VAR_ATHBUCKET"
+#    secretName: af-variables
+#    secretKey: athbucket
+#  # Env variables
+#  - envName: "AWS_DEFAULT_REGION"
+#    secretName: af-variables
+#    secretKey: region
