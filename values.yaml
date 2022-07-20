@@ -44,7 +44,7 @@ logs:
 #   https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html
 secret:
   # Connections
-  - envName: "AIRFLOW_CONN_AWS_DEFAULT"
+  - envName: "AIRFLOW_CONN_GCP_DEFAULT"
     secretName: af-connections
     secretKey: gcp
   - envName: "AIRFLOW_CONN_POSTGRES_DEFAULT"

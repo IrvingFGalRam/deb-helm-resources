@@ -31,7 +31,6 @@ export NFS_SERVER=$(kubectl -n nfs get service/nfs-server -o jsonpath="{.spec.cl
 #CREDENTIALS=$(head -2 $CREDENTIALS_FILE | tail -1)
 #AWS_REGION=$(terraform output -raw region)
 #AFCONN_GCP="aws://${CREDENTIALS/,/:}@?region_name=${AWS_REGION}"
-AFCONN_GCP="google-cloud-platform://?extra__google_cloud_platform__key_path=%2Fkeys%2Fkey.json&extra__google_cloud_platform__project=capstone-project-wzl&extra__google_cloud_platform__num_retries=5"
 echo "...GCP URI ${AFCONN_GCP}"
 #google-cloud-platform://?extra__google_cloud_platform__key_path=%2Fkeys%2Fkey.json&extra__google_cloud_platform__scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform&extra__google_cloud_platform__project=airflow&extra__google_cloud_platform__num_retries=5
 
@@ -41,12 +40,12 @@ echo "...GCP URI ${AFCONN_GCP}"
 #DB_PASSWORD=$(terraform output -raw rds_password)
 #DB_ENDPOINT=$(terraform output -raw rds_endpoint)
 #DB_NAME=$(terraform output -raw rds_database)
-AFCONN_POSTGRES="postgresql://dbuser:dbpassword@34.172.31.217/de-db-name"
+AFCONN_POSTGRES="postgresql://"
 echo "...POSTGRES URI ${AFCONN_POSTGRES}"
 
 ## Env vars for data related to the rest of the services
 #AFVAR_BUCKET=$(terraform output -raw s3_bucket_name)
-AFVAR_BUCKET="capstone-project-wzl-input"
+AFVAR_BUCKET="bucket"
 echo "...Bucket URI ${AFVAR_BUCKET}"
 #AFVAR_LOGREV_KEY=$(terraform output -raw s3_csv_log_reviews_key)
 #AFVAR_MOVREV_KEY=$(terraform output -raw s3_csv_movie_review_key)
